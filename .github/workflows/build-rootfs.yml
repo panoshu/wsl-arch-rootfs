@@ -38,6 +38,7 @@ jobs:
           echo "%wheel ALL=(ALL:ALL) ALL" > /mnt/sys-root/etc/sudoers.d/wheel &&
           echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" >> /mnt/sys-root/etc/sudoers.d/wheel &&
           arch-chroot /mnt/sys-root locale-gen &&
+          echo -e "[boot]\nsystemd = true\n\n[automount]\nenabled = true\noptions = \"metadata\"\nmountFsTab = true" > /mnt/sys-root/etc/wsl.conf &&
           rm /mnt/sys-root/etc/machine-id &&
           touch /mnt/sys-root/etc/machine-id &&
           rm -rf /mnt/sys-root/var/cache/pacman/pkg/*
