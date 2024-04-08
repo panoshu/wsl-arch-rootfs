@@ -34,11 +34,6 @@ jobs:
           wget -O /mnt/sys-root/etc/pacman.d/mirrorlist https://archlinux.org/mirrorlist/?country=CN&protocol=https &&
           sed -i -e 's?^#Server = https://mirrors.tuna.tsinghua?Server = https://mirrors.tuna.tsinghua?g' /mnt/sys-root/etc/pacman.d/mirrorlist &&
           sed -i -e 's/^#Color/Color/g' -e 's/^#ParallelDownloads/ParallelDownloads/g' /mnt/sys-root/etc/pacman.conf &&
-          echo -e "\n\n[archlinuxcn]\nServer = https://mirrors.cernet.edu.cn/archlinuxcn/$arch" >> /mnt/sys-root/etc/pacman.conf &&
-          pacman-key --lsign-key "farseerfc@archlinux.org" &&
-          pacman -Sy archlinuxcn-keyring --noconfirm &&
-          pacman -Syyu --noconfirm &&
-          pacman -S yay zsh inetutils openbsd-netcat &&
           sed -i -e 's/^#en_US.UTF-8/en_US.UTF-8/g' /mnt/sys-root/etc/locale.gen &&
           echo "%wheel ALL=(ALL:ALL) ALL" > /mnt/sys-root/etc/sudoers.d/wheel &&
           echo "%wheel ALL=(ALL:ALL) NOPASSWD: ALL" >> /mnt/sys-root/etc/sudoers.d/wheel &&
