@@ -42,10 +42,9 @@ jobs:
       - name: Configure-2
         run: |
           echo -e "\n\n[archlinuxcn]\nServer = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch" >> /mnt/sys-root/etc/pacman.conf &&
-          pacman-key --lsign-key "farseerfc@archlinux.org" &&
-          pacman -Sy archlinuxcn-keyring --noconfirm &&
-          pacman -Syyu --noconfirm &&
-          pacman -S yay zsh inetutils openbsd-netcat &&
+          arch-chroot /mnt/sys-root bash -c 'pacman-key --lsign-key "farseerfc@archlinux.org" && pacman -Syy archlinuxcn-keyring --noconfirm' &&
+          arch-chroot /mnt/sys-root bash -c 'pacman -Syyu --noconfirm' &&
+          pacstrap -G -M -C target-pacman.conf -K /mnt/sys-root zsh yay &&
           echo -e "[boot]\nsystemd = true\n\n[automount]\nenabled = true\noptions = \"metadata\"\nmountFsTab = true" > /mnt/sys-root/etc/wsl.conf &&
           rm /mnt/sys-root/etc/machine-id &&
           touch /mnt/sys-root/etc/machine-id &&
